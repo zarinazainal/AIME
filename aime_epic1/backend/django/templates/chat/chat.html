@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AIME · Chat{% endblock %}
+{% block body_class %}starter-page{% endblock %}
+
+{% block content %}
+<section class="section py-5">
+  <div class="container" data-aos="fade-up">
+    <div class="row justify-content-center">
+      <div class="col-xl-8 col-lg-9">
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-white border-0 d-flex align-items-center">
+            <i class="bi bi-chat-dots me-2"></i>
+            <strong>AuditME Assistant</strong>
+          </div>
+          <div class="card-body">
+
+            <div id="messages" class="mb-3" style="max-height:55vh; overflow:auto;">
+              {% for m in messages %}
+                <div class="p-3 my-2 rounded-3 {% if m.role == 'user' %}bg-primary text-white{% else %}bg-light{% endif %}">
+                  {{ m.text }}
+                </div>
+              {% empty %}
+                <div class="text-muted">Say hi to AIME 👋</div>
+              {% endfor %}
+            </div>
+
+            <form id="chat-form" method="post" class="d-flex gap-2">
+              {% csrf_token %}
+              <input class="form-control" id="message" name="message" placeholder="Type your question…" autocomplete="off">
+              <button class="btn btn-primary" type="submit"><i class="bi bi-send"></i></button>
+            </form>
+
+            <div class="text-end mt-2">
+              <a class="small link-secondary" href="{% url 'kb_search' %}?q=">Try KB search</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function getCookie(name) {
+  const m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+  return m ? m.pop() : '';
+}
+const csrftoken = getCookie('csrftoken');
+const form = document.getElementById('chat-form');
+const messages = document.getElementById('messages');
+
+function addBubble(role, text){
+  const div = document.createElement('div');
+  div.className = 'p-3 my-2 rounded-3 ' + (role === 'user' ? 'bg-primary text-white' : 'bg-light');
+  div.textContent = text;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const input = document.getElementById('message');
+  const text = (input.value || '').trim();
+  if (!text) return;
+
+  addBubble('user', text);
+  input.value = '';
+
+  const res = await fetch(window.location.pathname, {
+    method: 'POST',
+    headers: { 'X-CSRFToken': csrftoken, 'Accept': 'application/json' },
+    body: new URLSearchParams({ message: text })
+  });
+  const data = await res.json().catch(() => ({ reply: '(no reply)' }));
+  addBubble('assistant', data.reply || '(no reply)');
+});
+</script>
+{% endblock %}

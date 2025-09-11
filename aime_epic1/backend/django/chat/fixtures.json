@@ -1,0 +1,26 @@
+[
+  {
+    "model": "chat.knowledgebaseentry",
+    "pk": 1,
+    "fields": {
+      "question": "Bagaimana cara reset kata laluan?",
+      "answer": "Sila klik 'Lupa kata laluan' pada skrin log masuk AuditME. Jika masih bermasalah, hubungi penilai (assessor) anda untuk hantar pautan reset.",
+      "tags": "password,reset,kata laluan",
+      "is_active": true,
+      "created_at": "2025-08-21T04:00:00Z",
+      "updated_at": "2025-08-21T04:00:00Z"
+    }
+  },
+  {
+    "model": "chat.knowledgebaseentry",
+    "pk": 2,
+    "fields": {
+      "question": "Apakah maksud 'verifier' dalam sistem?",
+      "answer": "Verifier ialah pegawai yang menyemak jawapan auditee. Pastikan anda pilih verifier yang betul pada setiap set soalan.",
+      "tags": "verifier,peranan,role",
+      "is_active": true,
+      "created_at": "2025-08-21T04:00:00Z",
+      "updated_at": "2025-08-21T04:00:00Z"
+    }
+  }
+]

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AIME · AuditME Assistant{% endblock %}
+{% block body_class %}index-page{% endblock %}
+
+{% block content %}
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero section dark-background">
+    <img src="{% static 'assets/img/hero-bg.jpg' %}" alt="" data-aos="fade-in" class="hero-bg">
+
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
+          <h1 class="mb-3">AIME: AI-Driven Virtual Assistant for AuditME</h1>
+          <p class="mb-4">Ask questions, search the knowledge base, and streamline your AuditME workflows. EPIC 1 is live — more EPICs coming.</p>
+          <div>
+            <a href="{% url 'chat' %}" class="btn-get-started">Open Chat</a>
+            <a href="/admin/" class="btn btn-outline-light ms-2" target="_blank"><i class="bi bi-gear"></i> Admin</a>
+          </div>
+        </div>
+
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+          <img src="{% static 'assets/img/hero-img.png' %}" class="img-fluid" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Hero -->
+
+  <!-- You can keep or remove the sections below as needed for future EPICs -->
+  <section id="about" class="about section">
+    <div class="container" data-aos="fade-up">
+      <div class="row gy-4">
+        <div class="col-lg-6">
+          <img src="{% static 'assets/img/about.jpg' %}" class="img-fluid rounded" alt="">
+        </div>
+        <div class="col-lg-6">
+          <h3>What is AIME?</h3>
+          <p class="mb-2">AIME helps AuditME users reset passwords, request IDs, and get quick answers. Built with Django + FastAPI, styled with Techie.</p>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i> Chat interface with session history</li>
+            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i> Knowledge base search</li>
+            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i> Ready for the next 4 EPICs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

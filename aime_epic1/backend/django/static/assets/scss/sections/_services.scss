@@ -1,0 +1,58 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Services Section
+--------------------------------------------------------------*/
+.services {
+  .service-item {
+    position: relative;
+    padding-top: 20px;
+
+    .icon {
+      background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+      width: 72px;
+      height: 72px;
+      position: relative;
+      margin-right: 15px;
+      line-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: ease-in-out 0.3s;
+
+      i {
+        color: var(--accent-color);
+        font-size: 32px;
+        z-index: 2;
+        position: relative;
+      }
+    }
+
+    .title {
+      font-weight: 700;
+      margin-bottom: 5px;
+      font-size: 18px;
+
+      a {
+        color: var(--heading-color);
+
+        &:hover {
+          color: var(--accent-color);
+        }
+      }
+    }
+
+    .description {
+      font-size: 14px;
+    }
+
+    &:hover {
+      .icon {
+        background-color: var(--accent-color);
+
+        i {
+          color: var(--contrast-color);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{% block title %}AIME · AuditME Assistant{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}AI-Driven Virtual Assistant for the AuditME System{% endblock %}">
+    <meta name="keywords" content="AuditME, AIME, AI assistant">
+
+    <!-- Favicons -->
+    <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS -->
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+    <!-- Main Theme CSS -->
+    <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+    {% block extra_head %}{% endblock %}
+  </head>
+
+  <body class="{% block body_class %}index-page{% endblock %}">
+
+    <!-- ======= Header / Navbar ======= -->
+    <header id="header" class="header d-flex align-items-center fixed-top">
+      <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+        <a href="{% url 'home' %}" class="logo d-flex align-items-center me-auto">
+          <!-- If you want an image logo: <img src="{% static 'assets/img/logo.png' %}" alt=""> -->
+          <h1 class="sitename">AIME</h1>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
+            <li><a href="{% url 'chat' %}" class="{% if request.resolver_match.url_name == 'chat' %}active{% endif %}">Chat</a></li>
+            <li><a href="{% url 'kb_search' %}?q=">KB Search</a></li>
+            <li><a href="/admin/" target="_blank">Admin</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <main id="main" class="main">
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="container">
+        <div class="copyright">
+          &copy; <span id="year"></span> <strong class="px-1 sitename">AIME</strong> Sistem AuditME Virtual Assistant .Nur ZARINA BINTI ZAINAL ABIDIN. All Rights Reserved.
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS -->
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+    <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+    <!-- Theme Main JS -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

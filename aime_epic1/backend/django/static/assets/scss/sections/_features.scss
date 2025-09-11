@@ -1,0 +1,31 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Features Section
+--------------------------------------------------------------*/
+.features {
+  .features-image {
+    position: relative;
+    min-height: 400px;
+  }
+
+  .features-item {
+    h4 {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0 0 5px 0;
+    }
+
+    i {
+      font-size: 48px;
+      color: var(--accent-color);
+      margin-right: 20px;
+      line-height: 0;
+    }
+
+    p {
+      font-size: 15px;
+      color: color-mix(in srgb, var(--default-color), transparent 20%);
+      margin: 0;
+    }
+  }
+}

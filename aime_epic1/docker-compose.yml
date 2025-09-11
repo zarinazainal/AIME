@@ -1,0 +1,75 @@
+# docker-compose.yml (no "version" key needed for Compose v2)
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DB:-aime}
+      MYSQL_USER: ${MYSQL_USER:-aimeuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-aimesecret}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-p${MYSQL_ROOT_PASSWORD:-rootpassword}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_USER: ${MYSQL_USER:-aimeuser}
+      PMA_PASSWORD: ${MYSQL_PASSWORD:-aimesecret}
+    ports:
+      - "8080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  django:
+    build:
+      context: ./backend/django
+      dockerfile: Dockerfile
+    restart: always
+    env_file: .env
+    working_dir: /app
+    volumes:
+      - ./backend/django:/app
+    ports:
+      - "8005:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      fastapi:
+        condition: service_started
+    command: >
+      sh -c "python manage.py makemigrations chat &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+
+  fastapi:
+    build:
+      context: ./backend/fastapi
+      dockerfile: Dockerfile
+    restart: always
+    env_file: .env
+    environment:
+      OLLAMA_MODEL: gemma:2b
+      OLLAMA_BASE_URL: http://192.168.1.23:11434
+    working_dir: /app
+    volumes:
+      - ./backend/fastapi:/app
+    ports:
+      - "8001:8001"
+    command: >
+      sh -c "uvicorn main:app --host 0.0.0.0 --port ${FASTAPI_PORT:-8001}"
+
+volumes:
+  db_data:
+
